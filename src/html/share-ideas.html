@@ -3,82 +3,180 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Share Ideas | Collab-Sphere</title>
-    <link rel="stylesheet" href="/Collab-Sphere-IIT-Madras-/src/css/style.css">
-    <link rel="stylesheet" href="/Collab-Sphere-IIT-Madras-/src/css/card-pages.css">
+    <title>Share Your Project Idea</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+
+        :root {
+            --primary-blue: #0d6efd;
+            --dark-blue: #052c65;
+            --light-gray: #f8f9fa;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--light-gray);
+        }
+        
+        .hero-section {
+            background: linear-gradient(135deg, var(--primary-blue), var(--dark-blue));
+            color: white;
+            padding: 4rem 0;
+            margin-bottom: 3rem;
+        }
+        
+        .idea-form {
+            background-color: white;
+            border-radius: 10px;
+            padding: 2rem;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            margin-bottom: 3rem;
+        }
+        
+        .btn-primary {
+            background-color: var(--primary-blue);
+            border: none;
+            padding: 0.5rem 1.5rem;
+        }
+        
+        .form-control, .form-select {
+            padding: 0.75rem;
+            border-radius: 8px;
+        }
+        
+        .new-idea-card {
+            background-color: white;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            animation: fadeIn 0.5s ease-in;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .skill-badge {
+            background-color: #e9ecef;
+            padding: 0.25rem 0.5rem;
+            border-radius: 4px;
+            margin-right: 0.5rem;
+            margin-bottom: 0.5rem;
+            font-size: 0.85rem;
+            display: inline-block;
+        }
+    </style>
 </head>
 <body>
-    <!-- Animated Background -->
-    <div class="bg-animation">
-        <div class="bg-circle" style="width: 600px; height: 600px; top: -100px; left: -100px;"></div>
-        <div class="bg-circle" style="width: 400px; height: 400px; bottom: -100px; right: -100px; animation-delay: 2s;"></div>
+    <!-- Hero Section -->
+    <div class="hero-section text-center">
+        <div class="container">
+            <h1 class="display-4 fw-bold mb-4">Share Your Project Idea</h1>
+            <p class="lead mb-4">Post your innovative ideas and find the perfect collaborators</p>
+            <a href="#ideaForm" class="btn btn-light btn-lg px-4">Share Your Idea Now</a>
+        </div>
     </div>
-
-    <!-- Navigation -->
-    <nav>
-        <a href="/Collab-Sphere-IIT-Madras-/index.html" class="logo">Collab-<span>Sphere</span></a>
-        <div class="nav-links">
-            <a href="/Collab-Sphere-IIT-Madras-/index.html">Home</a>
-            <a href="Faq.html">FAQs</a>
-            <a href="ContactUs.html">Contact Us</a>
-            <a href="login.html" class="login-btn">Login</a>
-        </div>
-    </nav>
-
-    <!-- Main Content -->
-    <main class="card-page-container">
-        <div class="card-page-header">
-            <div class="benefit-icon">💡</div>
-            <h1>Share Ideas</h1>
-            <p class="subtitle">Post your project ideas and find collaborators easily</p>
-        </div>
-
-        <section class="card-page-content">
-            <div class="content-section">
-                <h2>Bring Your Ideas to Life</h2>
-                <p>Have a great project idea but need help making it reality? Collab-Sphere is the perfect platform to share your vision and find the right people to help build it.</p>
-                
-                <div class="feature-grid">
-                    <div class="feature-card">
-                        <h3>Idea Validation</h3>
-                        <p>Get feedback on your project ideas from the community before you start building.</p>
-                    </div>
-                    <div class="feature-card">
-                        <h3>Skill Matching</h3>
-                        <p>Our platform helps you find collaborators with exactly the skills your project needs.</p>
-                    </div>
-                    <div class="feature-card">
-                        <h3>Project Visibility</h3>
-                        <p>Showcase your ideas to hundreds of potential collaborators actively looking for projects.</p>
-                    </div>
+    
+    <!-- Idea Form Section -->
+    <div class="container" id="ideaForm">
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <div class="idea-form">
+                    <h2 class="mb-4 text-center">Tell Us About Your Idea</h2>
+                    <form id="ideaSubmissionForm">
+                        <div class="mb-3">
+                            <label for="projectName" class="form-label">Project Name</label>
+                            <input type="text" class="form-control" id="projectName" placeholder="e.g. Collaborative Code Editor" required>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="projectDescription" class="form-label">Detailed Description</label>
+                            <textarea class="form-control" id="projectDescription" rows="4" placeholder="Describe your project in detail..." required></textarea>
+                        </div>
+                        
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="skillsNeeded" class="form-label">Skills Needed</label>
+                                <select class="form-select" id="skillsNeeded" multiple>
+                                    <option>JavaScript</option>
+                                    <option>Python</option>
+                                    <option>React</option>
+                                    <option>Node.js</option>
+                                    <option>Django</option>
+                                    <option>UI/UX Design</option>
+                                    <option>DevOps</option>
+                                </select>
+                                <small class="text-muted">Hold Ctrl/Cmd to select multiple</small>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="userName" class="form-label">Your Name</label>
+                                <input type="text" class="form-control" id="userName" placeholder="Your name" required>
+                            </div>
+                        </div>
+                        
+                        <div class="d-grid">
+                            <button type="submit" class="btn btn-primary btn-lg">Submit Idea</button>
+                        </div>
+                    </form>
                 </div>
             </div>
-
-            <div class="content-section">
-                <h2>How To Share Your Ideas</h2>
-                <ol class="steps-list">
-                    <li>
-                        <strong>Create a project post</strong> - Describe your idea, goals, and required skills
-                    </li>
-                    <li>
-                        <strong>Set project parameters</strong> - Define scope, timeline, and team size
-                    </li>
-                    <li>
-                        <strong>Review applicants</strong> - Browse profiles of interested collaborators
-                    </li>
-                    <li>
-                        <strong>Build your team</strong> - Select team members and start collaborating
-                    </li>
-                </ol>
+        </div>
+        
+        <!-- Submitted Ideas Section -->
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <h3 class="mb-4">Your Submitted Ideas</h3>
+                <div id="ideasContainer">
+                    <!-- New cards will appear here -->
+                </div>
             </div>
+        </div>
+    </div>
 
-            <div class="cta-section">
-                <a href="login.html" class="cta-button">Share Your Ideas Now</a>
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+    const ideaForm = document.getElementById('ideaSubmissionForm');
+    const ideasContainer = document.getElementById('ideasContainer');
+    
+    ideaForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        // Get form values
+        const projectName = document.getElementById('projectName').value;
+        const description = document.getElementById('projectDescription').value;
+        const skills = Array.from(document.getElementById('skillsNeeded').selectedOptions)
+                            .map(option => option.value);
+        const userName = document.getElementById('userName').value;
+        
+        // Create new card
+        const newCard = document.createElement('div');
+        newCard.className = 'new-idea-card';
+        newCard.innerHTML = `
+            <h4>${projectName}</h4>
+            <p class="mb-3">${description}</p>
+            <div class="mb-2">
+                ${skills.map(skill => `<span class="skill-badge">${skill}</span>`).join('')}
             </div>
-        </section>
-    </main>
-
-    <script src="/Collab-Sphere-IIT-Madras-/script/js/script.js"></script>
-    <script src="/Collab-Sphere-IIT-Madras-/script/js/card-pages.js"></script>
+            <small class="text-muted">Posted by ${userName} just now</small>
+        `;
+        
+        // Add new card to the container
+        ideasContainer.prepend(newCard);
+        
+        // Reset form
+        ideaForm.reset();
+        
+        // Scroll to the new card
+        newCard.scrollIntoView({ behavior: 'smooth' });
+    });
+});
+    </script>
 </body>
 </html>
