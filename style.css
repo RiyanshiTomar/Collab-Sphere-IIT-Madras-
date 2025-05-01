@@ -547,6 +547,7 @@ nav {
     line-height: 1.6;
 }
 
+
 /* Floating Animation */
 @keyframes float {
     0%, 100% { transform: translateY(0); }
