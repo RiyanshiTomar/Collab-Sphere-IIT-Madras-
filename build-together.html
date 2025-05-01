@@ -3,82 +3,622 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Build Together | Collab-Sphere</title>
+    <title>Build Together - Open Source Hub</title>
     <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="card-pages.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #58a6ff;
+            --primary-hover: #1f6feb;
+            --bg: #0d1117;
+            --card-bg: #161b22;
+            --text: #c9d1d9;
+            --text-secondary: #8b949e;
+            --border: #30363d;
+            --highlight: #1a5fb4;
+            --success: #238636;
+            --danger: #da3633;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 3rem;
+            position: relative;
+        }
+        
+        h1 {
+            font-size: 3rem;
+            margin: 0;
+            background: linear-gradient(90deg, var(--primary), #8a63d2);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            display: inline-block;
+        }
+        
+        .subtitle {
+            color: var(--text-secondary);
+            font-size: 1.2rem;
+            margin-top: 0.5rem;
+        }
+        
+        .search-bar {
+            max-width: 600px;
+            margin: 2rem auto;
+            position: relative;
+        }
+        
+        .search-bar input {
+            width: 100%;
+            padding: 0.8rem 1rem;
+            border-radius: 6px;
+            border: 1px solid var(--border);
+            background-color: var(--card-bg);
+            color: var(--text);
+            font-size: 1rem;
+            padding-left: 2.5rem;
+        }
+        
+        .search-bar i {
+            position: absolute;
+            left: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-secondary);
+        }
+        
+        .categories {
+            display: flex;
+            gap: 0.5rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 2rem;
+        }
+        
+        .category-btn {
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            background-color: var(--card-bg);
+            border: 1px solid var(--border);
+            color: var(--text);
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .category-btn:hover, .category-btn.active {
+            background-color: var(--highlight);
+            border-color: var(--primary);
+        }
+        
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+        
+        .project-card {
+            background-color: var(--card-bg);
+            border-radius: 10px;
+            border: 1px solid var(--border);
+            padding: 1.5rem;
+            transition: transform 0.3s, box-shadow 0.3s;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .project-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+            border-color: var(--primary);
+        }
+        
+        .project-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background-color: var(--primary);
+        }
+        
+        .project-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 1rem;
+        }
+        
+        .project-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin: 0;
+            color: var(--primary);
+        }
+        
+        .project-org {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            margin: 0.3rem 0;
+        }
+        
+        .project-description {
+            flex-grow: 1;
+            margin-bottom: 1.5rem;
+            color: var(--text);
+        }
+        
+        .project-stats {
+            display: flex;
+            gap: 1.5rem;
+            margin-top: 1rem;
+            font-size: 0.9rem;
+        }
+        
+        .stat {
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+            color: var(--text-secondary);
+        }
+        
+        .stat i {
+            font-size: 0.9rem;
+        }
+        
+        .contribute-btn {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 6px;
+            padding: 0.5rem 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            text-align: center;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: background-color 0.2s;
+        }
+        
+        .contribute-btn:hover {
+            background-color: var(--primary-hover);
+        }
+        
+        .language-tag {
+            display: inline-block;
+            padding: 0.2rem 0.5rem;
+            background-color: rgba(88, 166, 255, 0.1);
+            border-radius: 4px;
+            font-size: 0.8rem;
+            margin-top: 0.5rem;
+            color: var(--primary);
+        }
+        
+        .trending-badge {
+            position: absolute;
+            top: 0;
+            right: 0;
+            background-color: var(--danger);
+            color: white;
+            padding: 0.2rem 0.8rem;
+            border-radius: 0 10px 0 4px;
+            font-size: 0.7rem;
+            font-weight: bold;
+        }
+        
+        footer {
+            text-align: center;
+            margin-top: 3rem;
+            padding-top: 2rem;
+            border-top: 1px solid var(--border);
+            color: var(--text-secondary);
+        }
+        
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
 </head>
 <body>
-    <!-- Animated Background -->
-    <div class="bg-animation">
-        <div class="bg-circle" style="width: 600px; height: 600px; top: -100px; left: -100px;"></div>
-        <div class="bg-circle" style="width: 400px; height: 400px; bottom: -100px; right: -100px; animation-delay: 2s;"></div>
-    </div>
-
-    <!-- Navigation -->
-    <nav>
-        <a href="index.html" class="logo">Collab-<span>Sphere</span></a>
-        <div class="nav-links">
-            <a href="index.html">Home</a>
-            <a href="Faq.html">FAQs</a>
-            <a href="ContactUs.html">Contact Us</a>
-            <a href="login.html" class="login-btn">Login</a>
-        </div>
-    </nav>
-
-    <!-- Main Content -->
-    <main class="card-page-container">
-        <div class="card-page-header">
-            <div class="benefit-icon">🛠</div>
+    <div class="container">
+        <header>
             <h1>Build Together</h1>
-            <p class="subtitle">Work on real-world open-source projects and grow faster</p>
-        </div>
-
-        <section class="card-page-content">
-            <div class="content-section">
-                <h2>Collaborative Development</h2>
-                <p>Collab-Sphere provides all the tools you need to work effectively with your team on open-source projects, from idea to deployment.</p>
-                
-                <div class="feature-grid">
-                    <div class="feature-card">
-                        <h3>Project Management</h3>
-                        <p>Built-in tools to organize tasks, track progress, and manage your team.</p>
+            <p class="subtitle">Collaborate on the world's most impactful open source projects</p>
+            
+            <div class="search-bar">
+                <i class="fas fa-search"></i>
+                <input type="text" placeholder="Search projects...">
+            </div>
+            
+            <div class="categories">
+                <button class="category-btn active">All</button>
+                <button class="category-btn">Frontend</button>
+                <button class="category-btn">Backend</button>
+                <button class="category-btn">DevOps</button>
+                <button class="category-btn">AI/ML</button>
+                <button class="category-btn">Languages</button>
+                <button class="category-btn">Tools</button>
+            </div>
+        </header>
+        
+        <div class="projects-grid">
+            <!-- Frontend Category -->
+            <div class="project-card">
+                <div class="project-header">
+                    <div>
+                        <h3 class="project-title">React</h3>
+                        <p class="project-org">@facebook</p>
                     </div>
-                    <div class="feature-card">
-                        <h3>Code Collaboration</h3>
-                        <p>Integrated Git support and code review tools to streamline development.</p>
-                    </div>
-                    <div class="feature-card">
-                        <h3>Learning Resources</h3>
-                        <p>Access to tutorials and best practices for collaborative development.</p>
-                    </div>
+                    <a href="https://github.com/facebook/react" target="_blank" class="contribute-btn">
+                        <i class="fas fa-code-branch"></i> Contribute
+                    </a>
+                </div>
+                <p class="project-description">A JavaScript library for building user interfaces with reusable components.</p>
+                <span class="language-tag">JavaScript</span>
+                <div class="project-stats">
+                    <div class="stat"><i class="fas fa-star"></i> 210k</div>
+                    <div class="stat"><i class="fas fa-code-branch"></i> 42k</div>
+                    <div class="stat"><i class="fas fa-eye"></i> 8.2k</div>
                 </div>
             </div>
-
-            <div class="content-section">
-                <h2>Our Collaboration Features</h2>
-                <ul class="steps-list">
-                    <li>
-                        <strong>Dedicated project spaces</strong> - Central hub for all your project resources
-                    </li>
-                    <li>
-                        <strong>Real-time communication</strong> - Chat and video calls with your team
-                    </li>
-                    <li>
-                        <strong>Task assignment</strong> - Divide work and track responsibilities
-                    </li>
-                    <li>
-                        <strong>Progress tracking</strong> - Visualize your team's progress
-                    </li>
-                </ul>
+            
+            <div class="project-card">
+                <div class="trending-badge">TRENDING</div>
+                <div class="project-header">
+                    <div>
+                        <h3 class="project-title">Vue.js</h3>
+                        <p class="project-org">@vuejs</p>
+                    </div>
+                    <a href="https://github.com/vuejs/core" target="_blank" class="contribute-btn">
+                        <i class="fas fa-code-branch"></i> Contribute
+                    </a>
+                </div>
+                <p class="project-description">The progressive JavaScript framework for building modern web interfaces.</p>
+                <span class="language-tag">TypeScript</span>
+                <div class="project-stats">
+                    <div class="stat"><i class="fas fa-star"></i> 204k</div>
+                    <div class="stat"><i class="fas fa-code-branch"></i> 33k</div>
+                    <div class="stat"><i class="fas fa-eye"></i> 7.5k</div>
+                </div>
             </div>
-
-            <div class="cta-section">
-                <a href="Contribution_Card.html" class="cta-button">Start Building Together</a>
+            
+            <div class="project-card">
+                <div class="project-header">
+                    <div>
+                        <h3 class="project-title">VS Code</h3>
+                        <p class="project-org">@microsoft</p>
+                    </div>
+                    <a href="https://github.com/microsoft/vscode" target="_blank" class="contribute-btn">
+                        <i class="fas fa-code-branch"></i> Contribute
+                    </a>
+                </div>
+                <p class="project-description">Open source code editor redefined and optimized for building modern applications.</p>
+                <span class="language-tag">TypeScript</span>
+                <div class="project-stats">
+                    <div class="stat"><i class="fas fa-star"></i> 148k</div>
+                    <div class="stat"><i class="fas fa-code-branch"></i> 26k</div>
+                    <div class="stat"><i class="fas fa-eye"></i> 6.1k</div>
+                </div>
             </div>
-        </section>
-    </main>
+            
+            <!-- Backend Category -->
+            <div class="project-card">
+                <div class="project-header">
+                    <div>
+                        <h3 class="project-title">Node.js</h3>
+                        <p class="project-org">@nodejs</p>
+                    </div>
+                    <a href="https://github.com/nodejs/node" target="_blank" class="contribute-btn">
+                        <i class="fas fa-code-branch"></i> Contribute
+                    </a>
+                </div>
+                <p class="project-description">JavaScript runtime built on Chrome's V8 JavaScript engine for server-side applications.</p>
+                <span class="language-tag">JavaScript</span>
+                <div class="project-stats">
+                    <div class="stat"><i class="fas fa-star"></i> 96k</div>
+                    <div class="stat"><i class="fas fa-code-branch"></i> 27k</div>
+                    <div class="stat"><i class="fas fa-eye"></i> 5.3k</div>
+                </div>
+            </div>
+            
+            <div class="project-card">
+                <div class="project-header">
+                    <div>
+                        <h3 class="project-title">Django</h3>
+                        <p class="project-org">@django</p>
+                    </div>
+                    <a href="https://github.com/django/django" target="_blank" class="contribute-btn">
+                        <i class="fas fa-code-branch"></i> Contribute
+                    </a>
+                </div>
+                <p class="project-description">High-level Python Web framework that encourages rapid development and clean design.</p>
+                <span class="language-tag">Python</span>
+                <div class="project-stats">
+                    <div class="stat"><i class="fas fa-star"></i> 72k</div>
+                    <div class="stat"><i class="fas fa-code-branch"></i> 29k</div>
+                    <div class="stat"><i class="fas fa-eye"></i> 4.8k</div>
+                </div>
+            </div>
+            
+            <!-- DevOps Category -->
+            <div class="project-card">
+                <div class="trending-badge">POPULAR</div>
+                <div class="project-header">
+                    <div>
+                        <h3 class="project-title">Kubernetes</h3>
+                        <p class="project-org">@kubernetes</p>
+                    </div>
+                    <a href="https://github.com/kubernetes/kubernetes" target="_blank" class="contribute-btn">
+                        <i class="fas fa-code-branch"></i> Contribute
+                    </a>
+                </div>
+                <p class="project-description">Production-grade container orchestration with automated deployment and scaling.</p>
+                <span class="language-tag">Go</span>
+                <div class="project-stats">
+                    <div class="stat"><i class="fas fa-star"></i> 98k</div>
+                    <div class="stat"><i class="fas fa-code-branch"></i> 36k</div>
+                    <div class="stat"><i class="fas fa-eye"></i> 6.7k</div>
+                </div>
+            </div>
+            
+            <div class="project-card">
+                <div class="project-header">
+                    <div>
+                        <h3 class="project-title">Docker</h3>
+                        <p class="project-org">@docker</p>
+                    </div>
+                    <a href="https://github.com/docker" target="_blank" class="contribute-btn">
+                        <i class="fas fa-code-branch"></i> Contribute
+                    </a>
+                </div>
+                <p class="project-description">Open platform for developing, shipping, and running applications in containers.</p>
+                <span class="language-tag">Go</span>
+                <div class="project-stats">
+                    <div class="stat"><i class="fas fa-star"></i> 65k</div>
+                    <div class="stat"><i class="fas fa-code-branch"></i> 18k</div>
+                    <div class="stat"><i class="fas fa-eye"></i> 4.2k</div>
+                </div>
+            </div>
+            
+            <!-- AI/ML Category -->
+            <div class="project-card">
+                <div class="trending-badge">HOT</div>
+                <div class="project-header">
+                    <div>
+                        <h3 class="project-title">TensorFlow</h3>
+                        <p class="project-org">@tensorflow</p>
+                    </div>
+                    <a href="https://github.com/tensorflow/tensorflow" target="_blank" class="contribute-btn">
+                        <i class="fas fa-code-branch"></i> Contribute
+                    </a>
+                </div>
+                <p class="project-description">End-to-end open source platform for machine learning with neural networks.</p>
+                <span class="language-tag">C++</span>
+                <div class="project-stats">
+                    <div class="stat"><i class="fas fa-star"></i> 175k</div>
+                    <div class="stat"><i class="fas fa-code-branch"></i> 87k</div>
+                    <div class="stat"><i class="fas fa-eye"></i> 9.1k</div>
+                </div>
+            </div>
+            
+            <div class="project-card">
+                <div class="project-header">
+                    <div>
+                        <h3 class="project-title">PyTorch</h3>
+                        <p class="project-org">@pytorch</p>
+                    </div>
+                    <a href="https://github.com/pytorch/pytorch" target="_blank" class="contribute-btn">
+                        <i class="fas fa-code-branch"></i> Contribute
+                    </a>
+                </div>
+                <p class="project-description">Deep learning framework that puts Python first with GPU acceleration support.</p>
+                <span class="language-tag">C++</span>
+                <div class="project-stats">
+                    <div class="stat"><i class="fas fa-star"></i> 67k</div>
+                    <div class="stat"><i class="fas fa-code-branch"></i> 19k</div>
+                    <div class="stat"><i class="fas fa-eye"></i> 5.5k</div>
+                </div>
+            </div>
+            
+            <!-- Languages Category -->
+            <div class="project-card">
+                <div class="project-header">
+                    <div>
+                        <h3 class="project-title">Rust</h3>
+                        <p class="project-org">@rust-lang</p>
+                    </div>
+                    <a href="https://github.com/rust-lang/rust" target="_blank" class="contribute-btn">
+                        <i class="fas fa-code-branch"></i> Contribute
+                    </a>
+                </div>
+                <p class="project-description">Systems programming language focusing on safety, speed, and concurrency.</p>
+                <span class="language-tag">Rust</span>
+                <div class="project-stats">
+                    <div class="stat"><i class="fas fa-star"></i> 85k</div>
+                    <div class="stat"><i class="fas fa-code-branch"></i> 12k</div>
+                    <div class="stat"><i class="fas fa-eye"></i> 4.9k</div>
+                </div>
+            </div>
+            
+            <div class="project-card">
+                <div class="project-header">
+                    <div>
+                        <h3 class="project-title">TypeScript</h3>
+                        <p class="project-org">@microsoft</p>
+                    </div>
+                    <a href="https://github.com/microsoft/TypeScript" target="_blank" class="contribute-btn">
+                        <i class="fas fa-code-branch"></i> Contribute
+                    </a>
+                </div>
+                <p class="project-description">Typed JavaScript that scales with optional static type-checking and tooling.</p>
+                <span class="language-tag">TypeScript</span>
+                <div class="project-stats">
+                    <div class="stat"><i class="fas fa-star"></i> 92k</div>
+                    <div class="stat"><i class="fas fa-code-branch"></i> 12k</div>
+                    <div class="stat"><i class="fas fa-eye"></i> 5.1k</div>
+                </div>
+            </div>
+            
+            <!-- Tools Category -->
+            <div class="project-card">
+                <div class="project-header">
+                    <div>
+                        <h3 class="project-title">Git</h3>
+                        <p class="project-org">@git</p>
+                    </div>
+                    <a href="https://github.com/git/git" target="_blank" class="contribute-btn">
+                        <i class="fas fa-code-branch"></i> Contribute
+                    </a>
+                </div>
+                <p class="project-description">Distributed version control system with strong support for non-linear development.</p>
+                <span class="language-tag">C</span>
+                <div class="project-stats">
+                    <div class="stat"><i class="fas fa-star"></i> 47k</div>
+                    <div class="stat"><i class="fas fa-code-branch"></i> 25k</div>
+                    <div class="stat"><i class="fas fa-eye"></i> 3.8k</div>
+                </div>
+            </div>
+            
+            <div class="project-card">
+                <div class="project-header">
+                    <div>
+                        <h3 class="project-title">Homebrew</h3>
+                        <p class="project-org">@homebrew</p>
+                    </div>
+                    <a href="https://github.com/Homebrew/brew" target="_blank" class="contribute-btn">
+                        <i class="fas fa-code-branch"></i> Contribute
+                    </a>
+                </div>
+                <p class="project-description">The missing package manager for macOS (or Linux) for easy software installation.</p>
+                <span class="language-tag">Ruby</span>
+                <div class="project-stats">
+                    <div class="stat"><i class="fas fa-star"></i> 36k</div>
+                    <div class="stat"><i class="fas fa-code-branch"></i> 9k</div>
+                    <div class="stat"><i class="fas fa-eye"></i> 2.7k</div>
+                </div>
+            </div>
+        </div>
+        
+        <footer>
+            <p>Made with ❤ for open source | Build Together 2023</p>
+            <p>Want to add your project? <a href="#" style="color: var(--primary);">Submit a request</a></p>
+        </footer>
+    </div>
 
-    <script src="script.js"></script>
-    <script src="card-pages.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Category filtering
+            const categoryBtns = document.querySelectorAll('.category-btn');
+            const projectCards = document.querySelectorAll('.project-card');
+            
+            categoryBtns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    // Remove active class from all buttons
+                    categoryBtns.forEach(b => b.classList.remove('active'));
+                    // Add active class to clicked button
+                    btn.classList.add('active');
+                    
+                    const category = btn.textContent.trim();
+                    
+                    if (category === 'All') {
+                        projectCards.forEach(card => {
+                            card.style.display = 'flex';
+                        });
+                        return;
+                    }
+                    
+                    // Simple filtering - in a real app, you'd have proper category data
+                    projectCards.forEach(card => {
+                        const title = card.querySelector('.project-title').textContent;
+                        const isFrontend = ['React', 'Vue.js', 'VS Code'].includes(title);
+                        const isBackend = ['Node.js', 'Django'].includes(title);
+                        const isDevOps = ['Kubernetes', 'Docker'].includes(title);
+                        const isAIML = ['TensorFlow', 'PyTorch'].includes(title);
+                        const isLanguages = ['Rust', 'TypeScript'].includes(title);
+                        const isTools = ['Git', 'Homebrew'].includes(title);
+                        
+                        let shouldShow = false;
+                        
+                        if (category === 'Frontend' && isFrontend) shouldShow = true;
+                        else if (category === 'Backend' && isBackend) shouldShow = true;
+                        else if (category === 'DevOps' && isDevOps) shouldShow = true;
+                        else if (category === 'AI/ML' && isAIML) shouldShow = true;
+                        else if (category === 'Languages' && isLanguages) shouldShow = true;
+                        else if (category === 'Tools' && isTools) shouldShow = true;
+                        
+                        card.style.display = shouldShow ? 'flex' : 'none';
+                    });
+                });
+            });
+            
+            // Search functionality
+            const searchInput = document.querySelector('.search-bar input');
+            searchInput.addEventListener('input', (e) => {
+                const searchTerm = e.target.value.toLowerCase();
+                
+                projectCards.forEach(card => {
+                    const title = card.querySelector('.project-title').textContent.toLowerCase();
+                    const description = card.querySelector('.project-description').textContent.toLowerCase();
+                    const org = card.querySelector('.project-org').textContent.toLowerCase();
+                    
+                    if (title.includes(searchTerm) || description.includes(searchTerm) || org.includes(searchTerm)) {
+                        card.style.display = 'flex';
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+            });
+            
+            // Animate cards on scroll
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach((entry, index) => {
+                    if (entry.isIntersecting) {
+                        setTimeout(() => {
+                            entry.target.style.opacity = 1;
+                            entry.target.style.transform = 'translateY(0)';
+                        }, index * 100);
+                    }
+                });
+            }, observerOptions);
+            
+            projectCards.forEach(card => {
+                card.style.opacity = 0;
+                card.style.transform = 'translateY(20px)';
+                card.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+                observer.observe(card);
+            });
+        });
+    </script>
 </body>
 </html>
