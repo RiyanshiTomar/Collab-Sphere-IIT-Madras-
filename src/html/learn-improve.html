@@ -1,84 +1,256 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Build Together | Collab-Sphere</title>
-    <link rel="stylesheet" href="../css/style.css">
-    <link rel="stylesheet" href="../css/card-pages.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Collab-Sphere Discussion</title>
+  <style>
+    :root {
+      --primary: #00aaff;
+      --background: #0c0c1b;
+      --card: #1c1c2b;
+      --text-light: #f1f1f1;
+      --text-muted: #bbb;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: var(--background);
+      color: var(--text-light);
+    }
+
+    header {
+      text-align: center;
+      padding: 40px 20px 20px;
+    }
+
+    header h1 {
+      font-size: 2.8em;
+      color: var(--primary);
+    }
+
+    header p {
+      color: var(--text-muted);
+      font-size: 1.2em;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: auto;
+      padding: 20px;
+    }
+
+    .form-section {
+      background-color: var(--card);
+      padding: 25px;
+      border-radius: 12px;
+      margin-bottom: 30px;
+    }
+
+    .form-section h2 {
+      margin-bottom: 15px;
+    }
+
+    input, textarea {
+      width: 100%;
+      background: #2a2a3d;
+      border: 1px solid #444;
+      color: white;
+      padding: 12px;
+      margin-bottom: 15px;
+      border-radius: 8px;
+    }
+
+    button {
+      background: var(--primary);
+      border: none;
+      color: white;
+      padding: 10px 20px;
+      border-radius: 20px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: background 0.3s;
+    }
+
+    button:hover {
+      background: #008ecc;
+    }
+
+    .posts {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .post {
+      background: var(--card);
+      padding: 20px;
+      border-radius: 10px;
+      border-left: 5px solid var(--primary);
+    }
+
+    .post h3 {
+      margin-bottom: 5px;
+      color: var(--primary);
+    }
+
+    .post p {
+      margin-bottom: 10px;
+    }
+
+    .actions {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+
+    .actions button {
+      background: #2a2a3d;
+      border: 1px solid #444;
+      color: var(--text-muted);
+      font-size: 0.9em;
+      padding: 6px 12px;
+      border-radius: 6px;
+    }
+
+    .actions button.active {
+      background-color: var(--primary);
+      color: white;
+    }
+
+    .comments {
+      margin-top: 15px;
+      border-top: 1px solid #333;
+      padding-top: 10px;
+    }
+
+    .comments p {
+      margin: 6px 0;
+      font-size: 0.9em;
+      color: #ccc;
+    }
+
+    .comment-box {
+      margin-top: 10px;
+      display: flex;
+      gap: 10px;
+    }
+
+    .comment-box input {
+      flex: 1;
+      padding: 8px;
+      font-size: 0.9em;
+    }
+
+    @media (max-width: 600px) {
+      header h1 {
+        font-size: 2em;
+      }
+
+      .form-section h2 {
+        font-size: 1.5em;
+      }
+
+      button {
+        width: 100%;
+      }
+
+      .comment-box {
+        flex-direction: column;
+      }
+    }
+  </style>
 </head>
 <body>
-    <!-- Animated Background -->
-    <div class="bg-animation">
-        <div class="bg-circle" style="width: 600px; height: 600px; top: -100px; left: -100px;"></div>
-        <div class="bg-circle" style="width: 400px; height: 400px; bottom: -100px; right: -100px; animation-delay: 2s;"></div>
+
+  <header>
+    <h1>Collab-Sphere</h1>
+    <p>Discuss ideas, give feedback, and grow together!</p>
+  </header>
+
+  <div class="container">
+    <div class="form-section">
+      <h2>Create a Post</h2>
+      <input type="text" id="postTitle" placeholder="Post Title" />
+      <textarea id="postContent" placeholder="What's on your mind?" rows="3"></textarea>
+      <button onclick="createPost()">Create Post</button>
     </div>
 
-    <!-- Navigation -->
-    <nav>
-        <a href="index.html" class="logo">Collab-<span>Sphere</span></a>
-        <div class="nav-links">
-            <a href="../../index.html">Home</a>
-            <a href="Faq.html">FAQs</a>
-            <a href="ContactUs.html">Contact Us</a>
-            <a href="login.html" class="login-btn">Login</a>
+    <div class="posts" id="postList"></div>
+  </div>
+
+  <script>
+    function createPost() {
+      const title = document.getElementById('postTitle').value.trim();
+      const content = document.getElementById('postContent').value.trim();
+
+      if (!title || !content) {
+        alert("Please fill both title and content.");
+        return;
+      }
+
+      const postDiv = document.createElement('div');
+      postDiv.className = 'post';
+      postDiv.innerHTML = `
+        <h3>${title}</h3>
+        <p>${content}</p>
+        <div class="actions">
+          <button onclick="toggleLike(this)">👍 Like (<span>0</span>)</button>
+          <button onclick="toggleInterest(this)">⭐ Interested</button>
         </div>
-    </nav>
-
-    <!-- Main Content -->
-    <main class="card-page-container">
-        <div class="card-page-header">
-            <div class="benefit-icon">🛠</div>
-            <h1>Build Together</h1>
-            <p class="subtitle">Work on real-world open-source projects and grow faster</p>
+        <div class="comments">
+          <strong>Comments:</strong>
+          <div class="comment-list"></div>
+          <div class="comment-box">
+            <input type="text" placeholder="Write a comment..." onkeydown="handleComment(event, this)" />
+            <button onclick="addComment(this)">Reply</button>
+          </div>
         </div>
+      `;
 
-        <section class="card-page-content">
-            <div class="content-section">
-                <h2>Collaborative Development</h2>
-                <p>Collab-Sphere provides all the tools you need to work effectively with your team on open-source projects, from idea to deployment.</p>
-                
-                <div class="feature-grid">
-                    <div class="feature-card">
-                        <h3>Project Management</h3>
-                        <p>Built-in tools to organize tasks, track progress, and manage your team.</p>
-                    </div>
-                    <div class="feature-card">
-                        <h3>Code Collaboration</h3>
-                        <p>Integrated Git support and code review tools to streamline development.</p>
-                    </div>
-                    <div class="feature-card">
-                        <h3>Learning Resources</h3>
-                        <p>Access to tutorials and best practices for collaborative development.</p>
-                    </div>
-                </div>
-            </div>
+      document.getElementById('postList').prepend(postDiv);
 
-            <div class="content-section">
-                <h2>Our Collaboration Features</h2>
-                <ul class="steps-list">
-                    <li>
-                        <strong>Dedicated project spaces</strong> - Central hub for all your project resources
-                    </li>
-                    <li>
-                        <strong>Real-time communication</strong> - Chat and video calls with your team
-                    </li>
-                    <li>
-                        <strong>Task assignment</strong> - Divide work and track responsibilities
-                    </li>
-                    <li>
-                        <strong>Progress tracking</strong> - Visualize your team's progress
-                    </li>
-                </ul>
-            </div>
+      // Clear inputs
+      document.getElementById('postTitle').value = '';
+      document.getElementById('postContent').value = '';
+    }
 
-            <div class="cta-section">
-                <a href="Discussion.html" class="cta-button">Start Discussion</a>
-            </div>
-        </section>
-    </main>
+    function toggleLike(btn) {
+      const span = btn.querySelector('span');
+      let count = parseInt(span.textContent);
+      if (btn.classList.contains('active')) {
+        count--;
+        btn.classList.remove('active');
+      } else {
+        count++;
+        btn.classList.add('active');
+      }
+      span.textContent = count;
+    }
 
-    <script src="../script/js/script.js"></script>
-    <script src="../script/js/card-pages.js"></script>
+    function toggleInterest(btn) {
+      btn.classList.toggle('active');
+    }
+
+    function handleComment(event, input) {
+      if (event.key === 'Enter') {
+        addComment(input.nextElementSibling);
+      }
+    }
+
+    function addComment(button) {
+      const input = button.previousElementSibling;
+      const text = input.value.trim();
+      if (!text) return;
+
+      const commentList = button.closest('.comments').querySelector('.comment-list');
+      const p = document.createElement('p');
+      p.textContent = text;
+      commentList.appendChild(p);
+      input.value = '';
+    }
+  </script>
+
 </body>
 </html>
