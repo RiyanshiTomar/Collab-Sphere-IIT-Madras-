@@ -308,13 +308,13 @@
             const projectCards = Array.from(document.querySelectorAll('.project-card'));
             
             // Join button functionality
-            document.querySelectorAll('.btn-outline-primary').forEach(button => {
-                button.addEventListener('click', function() {
-                    const projectTitle = this.closest('.project-card').querySelector('h3, h4').textContent;
-                    alert(You've requested to join: ${projectTitle});
-                });
-            });
             
+            document.querySelectorAll('.btn-outline-primary').forEach(button => {
+    button.addEventListener('click', function() {
+        const projectTitle = this.closest('.project-card').querySelector('h3, h4').textContent;
+        alert(`You've requested to join: ${projectTitle}`);
+    });
+});
             // Filter projects function
             function filterProjects() {
                 const searchTerm = searchInput.value.toLowerCase();

@@ -256,6 +256,7 @@ nav {
     font-weight: 700;
     color: var(--light);
     text-decoration: none;
+    
     background: linear-gradient(to right, var(--primary), #00ccff);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
