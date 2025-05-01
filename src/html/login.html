@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login | Collab-Sphere</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <link rel="stylesheet" href="/Collab-Sphere-IIT-Madras-/src/css/style.css">
+    <link rel="stylesheet" href="/Collab-Sphere-IIT-Madras-/src/css/login-style.css">
+</head>
+<body>
+    <!-- Animated Background -->
+    <div class="bg-animation">
+        <div class="bg-circle" style="width: 600px; height: 600px; top: -100px; left: -100px;"></div>
+        <div class="bg-circle" style="width: 400px; height: 400px; bottom: -100px; right: -100px; animation-delay: 2s;"></div>
+    </div>
+
+    <!-- Navigation -->
+    <nav>
+        <a href="index.html" class="logo">Collab-<span>Sphere</span></a>
+        <div class="nav-links">
+            <a href="/Collab-Sphere-IIT-Madras-/index.html">Home</a>
+            <a href="Faq.html">FAQs</a>
+            <a href="ContactUs.html">Contact Us</a>
+        </div>
+    </nav>
+
+    <!-- Login/Signup Container -->
+    <div class="auth-container">
+        <div class="auth-box animate__animated animate__fadeIn">
+            <div class="auth-tabs">
+                <button class="tab-btn active" data-tab="login">Login</button>
+                <button class="tab-btn" data-tab="signup">Sign Up</button>
+            </div>
+            
+            <div class="auth-content">
+                <!-- Login Form -->
+                <form id="login-form" class="auth-form active">
+                    <div class="form-group">
+                        <label for="login-email">Email</label>
+                        <input type="email" id="login-email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="login-password">Password</label>
+                        <input type="password" id="login-password" required>
+                        <a href="#" class="forgot-password">Forgot password?</a>
+                    </div>
+                    <button type="submit" class="auth-btn">Login</button>
+                    <div class="social-login">
+                        <p>Or login with</p>
+                        <div class="social-icons">
+                            <a href="#" class="social-icon google">G</a>
+                            <a href="#" class="social-icon github">GH</a>
+                            <a href="#" class="social-icon linkedin">LI</a>
+                        </div>
+                    </div>
+                </form>
+                
+                <!-- Signup Form -->
+                <form id="signup-form" class="auth-form">
+                    <div class="form-group">
+                        <label for="signup-name">Full Name</label>
+                        <input type="text" id="signup-name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="signup-email">Email</label>
+                        <input type="email" id="signup-email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="signup-password">Password</label>
+                        <input type="password" id="signup-password" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="signup-confirm">Confirm Password</label>
+                        <input type="password" id="signup-confirm" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="signup-skills">Skills (comma separated)</label>
+                        <input type="text" id="signup-skills" placeholder="e.g., JavaScript, Python, UI/UX">
+                    </div>
+                    <button type="submit" class="auth-btn">Create Account</button>
+                    <div class="terms">
+                        By signing up, you agree to our <a href="#">Terms</a> and <a href="#">Privacy Policy</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="/Collab-Sphere-IIT-Madras-/script/js/login-script.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.0.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.0.2/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.0.2/firebase-firestore-compat.js"></script>
+</body>
+</html>
