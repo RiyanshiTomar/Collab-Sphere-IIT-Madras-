@@ -44,7 +44,7 @@ To create a welcoming ecosystem for student developers by promoting collaboratio
 
 ## 🤝 Team & Collaboration
 
-We’re a team of passionate students building Collab-Sphere to enable and encourage open-source collaboration. Contributions are welcome! Check out our [Contributing Guidelines](CONTRIBUTING.md) to get started.
+We’re a team of passionate students building Collab-Sphere to enable and encourage open-source collaboration. Contributions are welcome! 
 
 ---
 
