@@ -9,51 +9,119 @@
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-
         :root {
             --primary-blue: #0d6efd;
             --dark-blue: #052c65;
             --light-gray: #f8f9fa;
+            --glass-bg: rgba(255, 255, 255, 0.15);
+            --glass-border: rgba(255, 255, 255, 0.2);
         }
         
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: var(--light-gray);
+            background: linear-gradient(135deg, #000720 0%, #0d1321 100%);
+            min-height: 100vh;
+            color: white;
+            overflow-x: hidden;
         }
         
         .hero-section {
-            background: linear-gradient(135deg, var(--primary-blue), var(--dark-blue));
-            color: white;
-            padding: 4rem 0;
-            margin-bottom: 3rem;
+            padding: 6rem 0 4rem;
+            margin-bottom: 2rem;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .hero-section h1 {
+            font-weight: 800;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.2);
+        }
+        
+        .hero-section p {
+            font-size: 1.25rem;
+            opacity: 0.9;
+        }
+        
+        .idea-form-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 2rem 0;
         }
         
         .idea-form {
-            background-color: white;
-            border-radius: 10px;
-            padding: 2rem;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-            margin-bottom: 3rem;
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 2.5rem;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+            border: 1px solid var(--glass-border);
+            width: 100%;
+            max-width: 700px;
+            transition: all 0.3s ease;
+        }
+        
+        .idea-form:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+        }
+        
+        .form-label {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+        
+        .form-control, .form-select {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid var(--glass-border);
+            color: white;
+            padding: 0.75rem 1rem;
+            border-radius: 8px;
+            transition: all 0.3s;
+        }
+        
+        .form-control:focus, .form-select:focus {
+            background: rgba(255, 255, 255, 0.2);
+            border-color: rgba(255, 255, 255, 0.4);
+            color: white;
+            box-shadow: 0 0 0 0.25rem rgba(255, 255, 255, 0.1);
+        }
+        
+        .form-control::placeholder {
+            color: rgba(255, 255, 255, 0.6);
         }
         
         .btn-primary {
             background-color: var(--primary-blue);
             border: none;
-            padding: 0.5rem 1.5rem;
+            padding: 0.75rem 1.5rem;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            transition: all 0.3s;
         }
         
-        .form-control, .form-select {
-            padding: 0.75rem;
-            border-radius: 8px;
+        .btn-primary:hover {
+            background-color: #0b5ed7;
+            transform: translateY(-2px);
         }
         
         .new-idea-card {
-            background-color: white;
-            border-radius: 8px;
-            padding: 1.5rem;
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px);
+            border-radius: 12px;
+            padding: 1.75rem;
             margin-bottom: 1.5rem;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+            border: 1px solid var(--glass-border);
             animation: fadeIn 0.5s ease-in;
+            transition: all 0.3s;
+        }
+        
+        .new-idea-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 25px rgba(0,0,0,0.15);
         }
         
         @keyframes fadeIn {
@@ -62,23 +130,84 @@
         }
         
         .skill-badge {
-            background-color: #e9ecef;
-            padding: 0.25rem 0.5rem;
-            border-radius: 4px;
+            background: rgba(0, 123, 255, 0.2);
+            color: white;
+            padding: 0.35rem 0.75rem;
+            border-radius: 20px;
             margin-right: 0.5rem;
             margin-bottom: 0.5rem;
             font-size: 0.85rem;
             display: inline-block;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .bg-circle {
+            position: fixed;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.05);
+            animation: float 15s infinite ease-in-out;
+            z-index: -1;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(5deg); }
+        }
+        
+        .section-title {
+            position: relative;
+            display: inline-block;
+            margin-bottom: 2rem;
+        }
+        
+        .section-title:after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background: var(--primary-blue);
+            border-radius: 3px;
+        }
+        
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.1);
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 4px;
+        }
+        
+        ::-webkit-scrollbar-thumb:hover {
+            background: rgba(255, 255, 255, 0.5);
+        }
+        
+        .text-muted {
+            color: rgba(255, 255, 255, 0.7) !important;
         }
     </style>
 </head>
 <body>
+    <!-- Background circles -->
+    <div class="bg-circle" style="width: 600px; height: 600px; top: -100px; left: -100px;"></div>
+    <div class="bg-circle" style="width: 400px; height: 400px; bottom: -100px; right: -100px; animation-delay: 2s;"></div>
+    <div class="bg-circle" style="width: 300px; height: 300px; top: 50%; left: 10%; animation-delay: 4s;"></div>
+    
     <!-- Hero Section -->
     <div class="hero-section text-center">
         <div class="container">
             <h1 class="display-4 fw-bold mb-4">Share Your Project Idea</h1>
             <p class="lead mb-4">Post your innovative ideas and find the perfect collaborators</p>
-            <a href="#ideaForm" class="btn btn-light btn-lg px-4">Share Your Idea Now</a>
+            <a href="#ideaForm" class="btn btn-light btn-lg px-4 py-2 rounded-pill">
+                <i class="fas fa-lightbulb me-2"></i>Share Your Idea Now
+            </a>
         </div>
     </div>
     
@@ -89,20 +218,20 @@
                 <div class="idea-form">
                     <h2 class="mb-4 text-center">Tell Us About Your Idea</h2>
                     <form id="ideaSubmissionForm">
-                        <div class="mb-3">
+                        <div class="mb-4">
                             <label for="projectName" class="form-label">Project Name</label>
                             <input type="text" class="form-control" id="projectName" placeholder="e.g. Collaborative Code Editor" required>
                         </div>
                         
-                        <div class="mb-3">
+                        <div class="mb-4">
                             <label for="projectDescription" class="form-label">Detailed Description</label>
-                            <textarea class="form-control" id="projectDescription" rows="4" placeholder="Describe your project in detail..." required></textarea>
+                            <textarea class="form-control" id="projectDescription" rows="5" placeholder="Describe your project in detail..." required></textarea>
                         </div>
                         
                         <div class="row">
-                            <div class="col-md-6 mb-3">
+                            <div class="col-md-6 mb-4">
                                 <label for="skillsNeeded" class="form-label">Skills Needed</label>
-                                <select class="form-select" id="skillsNeeded" multiple>
+                                <select class="form-select" id="skillsNeeded" multiple size="5">
                                     <option>JavaScript</option>
                                     <option>Python</option>
                                     <option>React</option>
@@ -110,17 +239,25 @@
                                     <option>Django</option>
                                     <option>UI/UX Design</option>
                                     <option>DevOps</option>
+                                    <option>Machine Learning</option>
+                                    <option>Graphic Design</option>
+                                    <option>Mobile Development</option>
                                 </select>
-                                <small class="text-muted">Hold Ctrl/Cmd to select multiple</small>
+                                <small class="text-muted mt-1 d-block">Hold Ctrl/Cmd to select multiple</small>
                             </div>
-                            <div class="col-md-6 mb-3">
+                            <div class="col-md-6 mb-4">
                                 <label for="userName" class="form-label">Your Name</label>
                                 <input type="text" class="form-control" id="userName" placeholder="Your name" required>
+                                
+                                <label for="userEmail" class="form-label mt-3">Email (Optional)</label>
+                                <input type="email" class="form-control" id="userEmail" placeholder="your@email.com">
                             </div>
                         </div>
                         
-                        <div class="d-grid">
-                            <button type="submit" class="btn btn-primary btn-lg">Submit Idea</button>
+                        <div class="d-grid mt-4">
+                            <button type="submit" class="btn btn-primary btn-lg py-3 rounded-pill">
+                                <i class="fas fa-paper-plane me-2"></i>Submit Idea
+                            </button>
                         </div>
                     </form>
                 </div>
@@ -128,9 +265,9 @@
         </div>
         
         <!-- Submitted Ideas Section -->
-        <div class="row justify-content-center">
+        <div class="row justify-content-center mt-5">
             <div class="col-lg-8">
-                <h3 class="mb-4">Your Submitted Ideas</h3>
+                <h3 class="section-title">Your Submitted Ideas</h3>
                 <div id="ideasContainer">
                     <!-- New cards will appear here -->
                 </div>
@@ -142,41 +279,101 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-    const ideaForm = document.getElementById('ideaSubmissionForm');
-    const ideasContainer = document.getElementById('ideasContainer');
-    
-    ideaForm.addEventListener('submit', function(e) {
-        e.preventDefault();
-        
-        // Get form values
-        const projectName = document.getElementById('projectName').value;
-        const description = document.getElementById('projectDescription').value;
-        const skills = Array.from(document.getElementById('skillsNeeded').selectedOptions)
-                            .map(option => option.value);
-        const userName = document.getElementById('userName').value;
-        
-        // Create new card
-        const newCard = document.createElement('div');
-        newCard.className = 'new-idea-card';
-        newCard.innerHTML = `
-            <h4>${projectName}</h4>
-            <p class="mb-3">${description}</p>
-            <div class="mb-2">
-                ${skills.map(skill => `<span class="skill-badge">${skill}</span>`).join('')}
-            </div>
-            <small class="text-muted">Posted by ${userName} just now</small>
-        `;
-        
-        // Add new card to the container
-        ideasContainer.prepend(newCard);
-        
-        // Reset form
-        ideaForm.reset();
-        
-        // Scroll to the new card
-        newCard.scrollIntoView({ behavior: 'smooth' });
-    });
-});
+            const ideaForm = document.getElementById('ideaSubmissionForm');
+            const ideasContainer = document.getElementById('ideasContainer');
+            
+            // Load saved ideas from localStorage
+            loadSavedIdeas();
+            
+            ideaForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                // Get form values
+                const projectName = document.getElementById('projectName').value;
+                const description = document.getElementById('projectDescription').value;
+                const skills = Array.from(document.getElementById('skillsNeeded').selectedOptions)
+                                    .map(option => option.value);
+                const userName = document.getElementById('userName').value;
+                const userEmail = document.getElementById('userEmail').value;
+                
+                // Create idea object
+                const idea = {
+                    projectName,
+                    description,
+                    skills,
+                    userName,
+                    userEmail,
+                    timestamp: new Date().toISOString()
+                };
+                
+                // Save to localStorage
+                saveIdea(idea);
+                
+                // Create and display new card
+                createIdeaCard(idea);
+                
+                // Reset form
+                ideaForm.reset();
+                
+                // Show success message
+                showAlert('Idea submitted successfully!', 'success');
+            });
+            
+            function saveIdea(idea) {
+                let ideas = JSON.parse(localStorage.getItem('projectIdeas')) || [];
+                ideas.unshift(idea); // Add new idea to beginning
+                localStorage.setItem('projectIdeas', JSON.stringify(ideas));
+            }
+            
+            function loadSavedIdeas() {
+                const ideas = JSON.parse(localStorage.getItem('projectIdeas')) || [];
+                ideas.forEach(idea => createIdeaCard(idea));
+            }
+            
+            function createIdeaCard(idea) {
+                const newCard = document.createElement('div');
+                newCard.className = 'new-idea-card';
+                newCard.innerHTML = `
+                    <div class="d-flex justify-content-between align-items-start mb-3">
+                        <h4 class="mb-0">${idea.projectName}</h4>
+                        <small class="text-muted">${formatDate(idea.timestamp)}</small>
+                    </div>
+                    <p class="mb-4">${idea.description}</p>
+                    <div class="mb-3">
+                        ${idea.skills.map(skill => `<span class="skill-badge"><i class="fas fa-tag me-1"></i>${skill}</span>`).join('')}
+                    </div>
+                    <div class="d-flex justify-content-between align-items-center">
+                        <small class="text-muted">Posted by ${idea.userName}</small>
+                        ${idea.userEmail ? `<small class="text-muted"><i class="fas fa-envelope me-1"></i>${idea.userEmail}</small>` : ''}
+                    </div>
+                `;
+                
+                // Add new card to the container
+                ideasContainer.prepend(newCard);
+                
+                // Scroll to the new card
+                newCard.scrollIntoView({ behavior: 'smooth' });
+            }
+            
+            function formatDate(isoString) {
+                const date = new Date(isoString);
+                return date.toLocaleString();
+            }
+            
+            function showAlert(message, type) {
+                const alert = document.createElement('div');
+                alert.className = `alert alert-${type} position-fixed top-0 start-50 translate-middle-x mt-3`;
+                alert.style.zIndex = '9999';
+                alert.style.minWidth = '300px';
+                alert.textContent = message;
+                document.body.appendChild(alert);
+                
+                setTimeout(() => {
+                    alert.classList.add('fade');
+                    setTimeout(() => alert.remove(), 300);
+                }, 3000);
+            }
+        });
     </script>
 </body>
 </html>
